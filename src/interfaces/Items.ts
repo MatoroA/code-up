@@ -1,0 +1,3 @@
+interface Items{
+    itemName: string
+}
