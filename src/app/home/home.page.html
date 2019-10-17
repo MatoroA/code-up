@@ -1,15 +1,44 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+<ion-header translucent>
+  <ion-toolbar [ngClass]="{'toolbar': selectedItems?.length > 0}">
+    <ion-buttons slot="secondary" *ngIf="selectedItems?.length > 0">
+      <ion-button (click)="cancelSelection()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title *ngIf="selectedItems?.length > 0; else name">{{ selectedItems?.length }}</ion-title>
+
+    <ng-template #name>
+      <ion-title>Code up</ion-title>
+    </ng-template>
+    <ion-buttons slot="primary" *ngIf="selectedItems?.length > 0">
+      <ion-button (click)="presentAlert()">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
 
-    <ion-input [(ngModel)]="itemName" placeholder="Enter Input"></ion-input>
-    <ion-button color="dark" (click)="addItem()" >Dark</ion-button>
-  </div>
+  <ion-list>
+
+    <ion-item *ngFor="let i of listOfPeople" [ngClass]="{'selected': i?.selected}" (click)="onItemClick(i)" (press)="onPress(i)">
+      <ion-avatar slot="start" [ngStyle]="{'background-color': i?.color}">
+        <h3 *ngIf="!i?.selected; else done" >{{i?.userProfile}}</h3>
+
+        <ng-template #done>
+           <h3><ion-icon name="checkmark"></ion-icon></h3> 
+        </ng-template>
+      </ion-avatar>
+      <ion-label>{{i?.firstname}} {{i?.lastname}}</ion-label>
+      <br>
+      <p>{{i?.pledge}}</p>
+      <ion-ripple-effect type="bounded"></ion-ripple-effect>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab-button (click)="addItem()" color="danger">
+    <ion-icon name="create"></ion-icon>
+  </ion-fab-button>
 </ion-content>

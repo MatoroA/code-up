@@ -1,1 +1,44 @@
+.pending {
+    background-color: #FFFF99;
+}
 
+.toolbar {
+    background-color: red !important;
+    color: white;
+ }
+
+ .selected{
+    --ion-background-color:rgba(159, 197, 228, 0.267)
+}
+ ion-toolbar{
+     background-color: rgb(15, 97, 117);
+     color: white;
+ }
+
+ ion-fab-button{
+     bottom: 0 !important;
+     right: 0;
+     float: right;
+     position: fixed;
+ }
+ ion-tem{
+     border: 1px solid red;
+ }
+ ion-avatar{
+     text-align: center;
+     border: 1px solid grey;
+     display: table;
+     overflow: hidden;
+     color: white;
+    //  background-color: grey;
+
+     h3{
+        display: table-cell;
+        vertical-align: middle;
+     }
+     ion-icon{
+        display: table-cell;
+        vertical-align: middle;
+         color: white;
+     }
+ }

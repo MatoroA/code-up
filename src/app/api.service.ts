@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators'
+import { Item } from './home/home.page';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,11 @@ export class ApiService {
   }
 
 
-  addData(item:string){
+  addData(firstname:string, lastname:string, pledge:string){
     let data ={
-      itemName: item
+      firstName: firstname,
+      lastName: lastname,
+      pledge: pledge
     };
 
     return new Promise( (resolve, reject) =>{
@@ -29,11 +32,14 @@ export class ApiService {
       })
     })
   }
+  delete(id){
+    return this.afs.doc("items/"+id).delete();
+  }
 
   getItemsData(){
-    return this.afs.collection<Items>('items').snapshotChanges().pipe(
+    return this.afs.collection<Item>('items').snapshotChanges().pipe(
       map( actions => actions.map( a => {
-        const data = a.payload.doc.data() as Items;
+        const data = a.payload.doc.data() as Item;
         const id = a.payload.doc.id;
         return { id, ...data };
       }))

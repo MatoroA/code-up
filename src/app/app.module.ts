@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -16,6 +16,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import{ environment } from '../environments/environment';
 
+import {IonicGestureConfig} from '../IonicGestureConfig';
+// import { LongPressModule } from 'ionic-long-press';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -25,12 +27,14 @@ import{ environment } from '../environments/environment';
     AngularFireModule.initializeApp( environment.firebase ),
     AngularFirestoreModule, 
     AngularFireAuthModule, 
-    AngularFireStorageModule],
+    AngularFireStorageModule,
+    // LongPressModule
+  ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-
+    {provide: HAMMER_GESTURE_CONFIG, useClass: IonicGestureConfig}
   ],
   bootstrap: [AppComponent]
 })
